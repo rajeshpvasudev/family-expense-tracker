@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Family Expense Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Family Expense Tracker</p>
+        <h1>Calendar</h1>
+      </div>
+      <button id="todayBtn" class="ghost-btn">Today</button>
+    </header>
+
+    <main>
+      <section class="summary-grid">
+        <article class="summary-card">
+          <span>Income</span>
+          <strong id="incomeTotal">AED 0.00</strong>
+        </article>
+        <article class="summary-card">
+          <span>Expense</span>
+          <strong id="expenseTotal">AED 0.00</strong>
+        </article>
+        <article class="summary-card">
+          <span>Net</span>
+          <strong id="netTotal">AED 0.00</strong>
+        </article>
+      </section>
+
+      <section class="calendar-card">
+        <div class="calendar-toolbar">
+          <button id="prevMonthBtn" class="icon-btn" aria-label="Previous month">‹</button>
+          <h2 id="monthLabel"></h2>
+          <button id="nextMonthBtn" class="icon-btn" aria-label="Next month">›</button>
+        </div>
+
+        <div class="weekday-row">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+        <div id="calendarGrid" class="calendar-grid"></div>
+      </section>
+
+      <section class="day-card">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Selected day</p>
+            <h2 id="selectedDateLabel"></h2>
+          </div>
+          <button id="addBtn" class="primary-btn">+ Add</button>
+        </div>
+        <div id="transactionList" class="transaction-list"></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-view="calendar">Calendar</button>
+      <button class="nav-item" data-view="transactions">Transactions</button>
+      <button class="nav-item" data-view="review">Review</button>
+      <button class="nav-item" data-view="accounts">Accounts</button>
+      <button class="nav-item" data-view="more">More</button>
+    </nav>
+  </div>
+
+  <dialog id="transactionDialog" class="transaction-dialog">
+    <form method="dialog" id="transactionForm">
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow">Manual entry</p>
+          <h2>Add transaction</h2>
+        </div>
+        <button value="cancel" class="icon-btn" aria-label="Close">×</button>
+      </div>
+
+      <div class="form-grid">
+        <label>
+          Date
+          <input id="txDate" name="date" type="date" required />
+        </label>
+
+        <label>
+          Owner
+          <select id="txOwner" name="owner">
+            <option>Uttu</option>
+            <option>Chippa</option>
+          </select>
+        </label>
+
+        <label>
+          Type
+          <select id="txType" name="type">
+            <option>Expense</option>
+            <option>Income</option>
+            <option>Transfer</option>
+          </select>
+        </label>
+
+        <label>
+          Account
+          <select id="txAccount" name="account">
+            <option>Uttu RAK</option>
+            <option>Other</option>
+          </select>
+        </label>
+
+        <label class="wide">
+          Merchant / Description
+          <input id="txMerchant" name="merchant" placeholder="e.g. Carrefour" required />
+        </label>
+
+        <label>
+          Amount
+          <input id="txAmount" name="amount" type="number" inputmode="decimal" step="0.01" min="0.01" required />
+        </label>
+
+        <label>
+          Currency
+          <select id="txCurrency" name="currency">
+            <option>AED</option>
+            <option>USD</option>
+            <option>INR</option>
+          </select>
+        </label>
+
+        <label class="wide">
+          Category
+          <select id="txCategory" name="category">
+            <option>Needs Review</option>
+            <option>Groceries</option>
+            <option>Dining</option>
+            <option>Shopping</option>
+            <option>Transport</option>
+            <option>Utilities</option>
+            <option>Entertainment</option>
+            <option>Health</option>
+            <option>Education</option>
+            <option>Travel</option>
+            <option>Salary</option>
+            <option>Other</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="dialog-actions">
+        <button value="cancel" class="ghost-btn">Cancel</button>
+        <button id="saveTxBtn" value="default" class="primary-btn">Save transaction</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
