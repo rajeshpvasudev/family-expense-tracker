@@ -21,6 +21,14 @@ document.querySelectorAll(".nav-item").forEach(b=>b.onclick=()=>showView(b.datas
 ["searchInput","typeFilter","ownerFilter"].forEach(id=>$(id).addEventListener(id==="searchInput"?"input":"change",allList));
 function openAdd(){ $("txDate").value=state.selectedDate;$("transactionDialog").showModal()}
 document.querySelectorAll(".add-trigger").forEach(b=>b.onclick=openAdd);
-$("closeDialog").onclick=$("cancelDialog").onclick=()=>$("transactionDialog").close();
+function closeTransactionDialog(event){
+  if(event) event.preventDefault();
+  $("transactionDialog").close();
+}
+$("closeDialog").addEventListener("click", closeTransactionDialog);
+$("cancelDialog").addEventListener("click", closeTransactionDialog);
+$("transactionDialog").addEventListener("click", (event) => {
+  if (event.target === $("transactionDialog")) closeTransactionDialog(event);
+});
 $("transactionForm").onsubmit=async e=>{e.preventDefault();const tx={date:$("txDate").value,owner:$("txOwner").value,type:$("txType").value,account:$("txAccount").value,merchant:$("txMerchant").value,amount:$("txAmount").value,currency:$("txCurrency").value,category:$("txCategory").value};await transactionService.add(tx);state.selectedDate=tx.date;const [y,m]=tx.date.split("-").map(Number);state.month=new Date(y,m-1,1);e.target.reset();$("transactionDialog").close();await refresh()};
 refresh();
